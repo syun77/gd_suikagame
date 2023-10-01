@@ -5,6 +5,8 @@
 .import/
 export.cfg
 export_presets.cfg
+*.import
+*.avi
 
 # Imported translations (automatically generated from CSV files)
 *.translation
@@ -13,3 +15,6 @@ export_presets.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# for macOS
+.DS_Store
