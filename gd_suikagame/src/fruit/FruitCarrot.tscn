@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bn7yohjny6sls"]
+
+[ext_resource type="Script" path="res://src/fruit/Fruit.gd" id="1_qjssp"]
+[ext_resource type="Texture2D" uid="uid://cjcltm7fhf6mu" path="res://assets/images/fruits/carrot.png" id="2_kw7lc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7xkwk"]
+radius = 16.0
+height = 52.0
+
+[node name="FruitCarrot" type="RigidBody2D"]
+max_contacts_reported = 8
+contact_monitor = true
+script = ExtResource("1_qjssp")
+id = 1
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_kw7lc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_7xkwk")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

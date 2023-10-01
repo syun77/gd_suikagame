@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cb2dc3gv34pva"]
+
+[ext_resource type="Script" path="res://src/fruit/Fruit.gd" id="1_dvtfy"]
+[ext_resource type="Texture2D" uid="uid://3xyotjnmkxlo" path="res://assets/images/fruits/nya.png" id="2_3gvfp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uvqbf"]
+radius = 20.0
+height = 61.0333
+
+[node name="FruitNya" type="RigidBody2D"]
+max_contacts_reported = 8
+contact_monitor = true
+script = ExtResource("1_dvtfy")
+id = 7
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_3gvfp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 0.523599
+shape = SubResource("CapsuleShape2D_uvqbf")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

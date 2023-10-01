@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ksai0e8thobl"]
+
+[ext_resource type="Script" path="res://src/fruit/Fruit.gd" id="1_b7tp2"]
+[ext_resource type="Texture2D" uid="uid://bx1r7gcf7ti4u" path="res://assets/images/fruits/5box.png" id="2_pkr20"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r6328"]
+size = Vector2(54, 54)
+
+[node name="Fruit5Box" type="RigidBody2D"]
+max_contacts_reported = 8
+contact_monitor = true
+script = ExtResource("1_b7tp2")
+id = 8
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_pkr20")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_r6328")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -15,6 +15,10 @@ run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Common="*res://src/common/Common.gd"
+
 [display]
 
 window/dpi/allow_hidpi=false

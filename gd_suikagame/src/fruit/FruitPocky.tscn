@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbfut4uionqxh"]
+
+[ext_resource type="Script" path="res://src/fruit/Fruit.gd" id="1_rfcjv"]
+[ext_resource type="Texture2D" uid="uid://buyynkysxlr6j" path="res://assets/images/fruits/pocky.png" id="2_iv2hb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wh0o6"]
+height = 60.0
+
+[node name="FruitPocky" type="RigidBody2D"]
+max_contacts_reported = 8
+contact_monitor = true
+script = ExtResource("1_rfcjv")
+id = 3
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_iv2hb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_wh0o6")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
