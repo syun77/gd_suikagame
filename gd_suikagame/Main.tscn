@@ -20,10 +20,12 @@ scale = Vector2(0.08, 9.12)
 
 [node name="Wall3" parent="WallLayer" instance=ExtResource("1_oijm6")]
 position = Vector2(576, 640)
-scale = Vector2(4.12, 0.079999)
+scale = Vector2(4.12, 0.199999)
 
 [node name="Wall2" parent="WallLayer" instance=ExtResource("1_oijm6")]
 position = Vector2(832, 64)
 scale = Vector2(0.08, 9.12)
 
 [node name="FruitLayer" type="CanvasLayer" parent="."]
+
+[node name="UILayer" type="CanvasLayer" parent="."]

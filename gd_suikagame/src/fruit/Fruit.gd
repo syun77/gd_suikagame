@@ -26,21 +26,21 @@ enum eFruit {
 	XBOX, # 11:XBox.
 }
 
-## シーンテーブル.
-const TSCN_TBL = [
-	"res://src/fruit/FruitBullet.tscn",
-	"res://src/fruit/FruitCarrot.tscn",
-	"res://src/fruit/FruitRadish.tscn",
-	"res://src/fruit/FruitPocky.tscn",
-	"res://src/fruit/FruitBanana.tscn",
-	"res://src/fruit/FruitNasu.tscn",
-	"res://src/fruit/FruitTako.tscn",
-	"res://src/fruit/FruitNya.tscn",
-	"res://src/fruit/Fruit5Box.tscn",
-	"res://src/fruit/FruitMilk.tscn",
-	"res://src/fruit/FruitPudding.tscn",
-	"res://src/fruit/FruitXBox.tscn",	
-]
+# 名前テーブル.
+const NAMES = {
+	eFruit.BULLET: "のどあめ", # 0:敵弾.
+	eFruit.CARROT: "にんじん", # 1:人参.
+	eFruit.RADISH: "大根", # 2:大根.
+	eFruit.POCKY: "ポッキー", # 3:ポッキー.
+	eFruit.BANANA: "バナナ", # 4:バナナ.
+	eFruit.NASU: "なす", # 5:なす.
+	eFruit.TAKO: "たこ焼き", # 6:たこ焼き.
+	eFruit.NYA: "にゃ〜", # 7:えぐぜりにゃ〜.
+	eFruit.FIVE_BOX: "5箱", # 8:5箱.
+	eFruit.MILK: "牛乳", # 9:牛乳.
+	eFruit.PUDDING: "プリン", # 10:プリン.
+	eFruit.XBOX: "XBox", # 11:XBox.
+}
 
 # -----------------------------------------------
 # export.
@@ -57,6 +57,12 @@ const TSCN_TBL = [
 # var.
 # -----------------------------------------------
 var _hit_timer = 0.0 # 衝突タイマー.
+
+# -----------------------------------------------
+# static functions.
+# -----------------------------------------------
+static func get_fruit_name(id:eFruit) -> String:
+	return NAMES[id]
 
 # -----------------------------------------------
 # private functions.
