@@ -19,10 +19,6 @@ config/icon="res://icon.svg"
 
 Common="*res://src/common/Common.gd"
 
-[display]
-
-window/dpi/allow_hidpi=false
-
 [input]
 
 click={

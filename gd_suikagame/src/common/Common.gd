@@ -35,13 +35,27 @@ func get_layer(layer_name:String) -> CanvasLayer:
 	return _layers[layer_name]
 
 ## フルーツの生成.
-func create_fruit(id:Fruit.eFruit) -> Fruit:
-	# シーンを読み込む.
+func create_fruit(id:Fruit.eFruit, is_deferred:bool=false) -> Fruit:
+	# PackedSceneを取得.
 	var packed = FRUIT_TBL[id]
 	var fruit = packed.instantiate()
 	var layer = get_layer("fruit")
-	# ここでadd_child()するとエラーとなる.
-	#layer.add_child(fruit)
-	# 遅延処理しなければならない...
-	layer.call_deferred("add_child", fruit)
+	if is_deferred:
+		# RigidBody2D の body_entered シグナルで
+		# add_child()するとエラーとなるっぽい.
+		# そのため遅延処理で対処する.
+		layer.call_deferred("add_child", fruit)
+	else:
+		layer.add_child(fruit)
+	
 	return fruit
+
+## フルーツの基準スケール値を取得する.
+func get_fruit_scale(id:Fruit.eFruit) -> Vector2:
+	# PackedSceneを取得.
+	var packed:PackedScene = FRUIT_TBL[id]
+	var fruit = packed.instantiate()
+	add_child(fruit)
+	fruit.queue_free()
+	return fruit.get_sprite_scale()
+	

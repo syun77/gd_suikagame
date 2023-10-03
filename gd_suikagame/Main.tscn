@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ma78kqfw7f7"]
+[gd_scene load_steps=5 format=3 uid="uid://ma78kqfw7f7"]
 
 [ext_resource type="PackedScene" uid="uid://bl0fa1266u1ui" path="res://src/Wall.tscn" id="1_oijm6"]
 [ext_resource type="Script" path="res://Main.gd" id="1_pv48b"]
 [ext_resource type="Texture2D" uid="uid://86dds1ju85p4" path="res://assets/images/bg.png" id="2_k5l3r"]
+[ext_resource type="Texture2D" uid="uid://bfdplg1uei8ql" path="res://assets/images/fruits/nasu.png" id="4_4ngh3"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_pv48b")
@@ -29,3 +30,7 @@ scale = Vector2(0.08, 9.12)
 [node name="FruitLayer" type="CanvasLayer" parent="."]
 
 [node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="NowFruit" type="Sprite2D" parent="UILayer"]
+visible = false
+texture = ExtResource("4_4ngh3")
