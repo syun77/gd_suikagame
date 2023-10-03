@@ -58,9 +58,6 @@ func _ready() -> void:
 	# セットアップ.
 	Common.setup(layers)
 	
-	_ui_now_fruit.scale = Common.get_fruit_scale(Fruit.eFruit.NASU)
-	_ui_now_fruit.modulate.a = 0.5
-	
 # 次のフルーツを抽選する.
 # ※正確には次の次のフルーツ.
 func _lot_fruit() -> void:
@@ -72,7 +69,9 @@ func _lot_fruit() -> void:
 	# 設定.
 	_next_fruit = tbl[0]
 	
-	_ui_now_fruit.texture = Fruit.get_fruit_tex(_now_fruit)
+	_ui_now_fruit.texture = Fruit.get_fruit_tex(_now_fruit)	
+	_ui_now_fruit.scale = Common.get_fruit_scale(_now_fruit)
+	_ui_now_fruit.modulate.a = 0.5
 
 ## 更新.
 func _process(delta: float) -> void:
