@@ -29,9 +29,11 @@ enum eState {
 # -----------------------------------------------
 # onready.
 # -----------------------------------------------
+@onready var _wall_layer = $WallLayer
 @onready var _fruit_layer = $FruitLayer
 @onready var _ui_layer = $UILayer
 @onready var _ui_now_fruit = $UILayer/NowFruit
+@onready var _ui_dbg_label = $UILayer/DbgLabel
 
 # -----------------------------------------------
 # var.
@@ -52,6 +54,7 @@ var _fruit:Fruit = null
 func _ready() -> void:
 	# レイヤーテーブル.
 	var layers = {
+		"wall": _wall_layer,
 		"fruit": _fruit_layer,
 		"ui": _ui_layer,
 	}
@@ -110,7 +113,6 @@ func _update_main() -> void:
 		
 		# 落下中のフルーツを保持 (落下完了判定用).
 		_fruit = fruit
-		print(fruit)
 		# 落下完了待ち.
 		_state = eState.DROP_WAIT
 
@@ -151,3 +153,17 @@ func _update_debug() -> void:
 	if Input.is_action_just_pressed("reset"):
 		# リセット.
 		get_tree().change_scene_to_file("res://Main.tscn")
+
+	# 生成数をカウントする.
+	var tbl = {}
+	for obj in _fruit_layer.get_children():
+		var fruit = obj as Fruit
+		var id = fruit.id
+		if id in tbl:
+			tbl[id] += 1 # 登録済みならカウントアップ.
+		else:
+			tbl[id] = 1 # 未登録なら登録する.
+	_ui_dbg_label.text = ""
+	for id in tbl.keys():
+		var s = Fruit.get_fruit_name(id)
+		_ui_dbg_label.text += s + ":%d\n"%tbl[id]

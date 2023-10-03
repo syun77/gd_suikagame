@@ -24,8 +24,15 @@ const FRUIT_TBL = {
 # -----------------------------------------------
 # var.
 # -----------------------------------------------
+## CanvasLayer.
 var _layers = {}
 
+## フルーツのスケールテーブル.
+var _scale_tbl = {}
+
+# -----------------------------------------------
+# public function.
+# -----------------------------------------------
 ## セットアップ.
 func setup(layers) -> void:
 	_layers = layers
@@ -52,10 +59,21 @@ func create_fruit(id:Fruit.eFruit, is_deferred:bool=false) -> Fruit:
 
 ## フルーツの基準スケール値を取得する.
 func get_fruit_scale(id:Fruit.eFruit) -> Vector2:
+	if id in _scale_tbl:
+		# すでに登録済みならその値を使う.
+		return _scale_tbl[id]
+	
 	# PackedSceneを取得.
 	var packed:PackedScene = FRUIT_TBL[id]
 	var fruit = packed.instantiate()
+	# 登録してすぐに消す.
 	add_child(fruit)
 	fruit.queue_free()
-	return fruit.get_sprite_scale()
+	var scale = fruit.get_sprite_scale()
+	# テーブルに登録.
+	_scale_tbl[id] = scale
+	return scale
 	
+# -----------------------------------------------
+# private function.
+# -----------------------------------------------
