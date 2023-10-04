@@ -72,6 +72,7 @@ const TEXTURES = {
 # -----------------------------------------------
 # var.
 # -----------------------------------------------
+var _base_scale:Vector2
 var _hit_timer = 0.0 # 衝突タイマー.
 var _hit_count = 0 # 他のオブジェクトと衝突した回数.
 
@@ -102,7 +103,8 @@ func is_hit_even_once() -> bool:
 # -----------------------------------------------
 ## 開始.
 func _ready() -> void:
-	pass
+	# 基準のスケール値を保存.
+	_base_scale = get_sprite_scale()
 
 ## 更新.
 func _physics_process(delta: float) -> void:

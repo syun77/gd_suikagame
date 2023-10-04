@@ -31,6 +31,7 @@ enum eState {
 # -----------------------------------------------
 @onready var _wall_layer = $WallLayer
 @onready var _fruit_layer = $FruitLayer
+@onready var _spr_line = $Line
 @onready var _ui_layer = $UILayer
 @onready var _ui_now_fruit = $UILayer/NowFruit
 @onready var _ui_dbg_label = $UILayer/DbgLabel
@@ -102,10 +103,14 @@ func _update_main() -> void:
 	_ui_now_fruit.visible = true
 	_ui_now_fruit.position.x = get_global_mouse_position().x
 	_ui_now_fruit.position.y = DROP_POS_Y
+	_spr_line.visible = true
+	_spr_line.position.x = _ui_now_fruit.position.x
+	_spr_line.modulate.a = 0.5
 	
 	if Input.is_action_just_pressed("click"):
 		# UIとしてのフルーツを非表示.
 		_ui_now_fruit.visible = false
+		_spr_line.visible = false
 		
 		# @note 生成すると内部でレイヤーへの追加もしてくれる.
 		var fruit = Common.create_fruit(_now_fruit)
