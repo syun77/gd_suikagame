@@ -26,6 +26,14 @@ position = Vector2(576, 128)
 texture = ExtResource("3_laf43")
 offset = Vector2(0, 256)
 
+[node name="Marker" type="Node2D" parent="."]
+
+[node name="Left" type="Marker2D" parent="Marker"]
+position = Vector2(360, 128)
+
+[node name="Right" type="Marker2D" parent="Marker"]
+position = Vector2(800, 128)
+
 [node name="WallLayer" type="CanvasLayer" parent="."]
 
 [node name="Wall" parent="WallLayer" instance=ExtResource("1_oijm6")]

@@ -29,6 +29,8 @@ enum eState {
 # -----------------------------------------------
 # onready.
 # -----------------------------------------------
+@onready var _marker_left = $Marker/Left
+@onready var _marker_right = $Marker/Right
 @onready var _wall_layer = $WallLayer
 @onready var _fruit_layer = $FruitLayer
 @onready var _spr_line = $Line
@@ -100,12 +102,8 @@ func _update_init() -> void:
 
 ## 更新 > メイン.	
 func _update_main() -> void:
-	_ui_now_fruit.visible = true
-	_ui_now_fruit.position.x = get_global_mouse_position().x
-	_ui_now_fruit.position.y = DROP_POS_Y
-	_spr_line.visible = true
-	_spr_line.position.x = _ui_now_fruit.position.x
-	_spr_line.modulate.a = 0.5
+	# カーソルの更新.
+	_update_cursor()
 	
 	if Input.is_action_just_pressed("click"):
 		# UIとしてのフルーツを非表示.
@@ -135,6 +133,22 @@ func _update_drop_wait() -> void:
 ## 更新 > ゲームオーバー.
 func _update_game_over() -> void:
 	pass
+
+## 更新 > カーソル.
+func _update_cursor() -> void:
+	# カーソル位置の計算.
+	var px = get_global_mouse_position().x
+	# 移動可能範囲でclamp.
+	px = clamp(px, _marker_left.position.x, _marker_right.position.x)
+	
+	# フルーツカーソルを表示.
+	_ui_now_fruit.visible = true
+	_ui_now_fruit.position.x = px	
+	_ui_now_fruit.position.y = DROP_POS_Y
+	# 落下補助線を表示.
+	_spr_line.visible = true
+	_spr_line.position.x = px
+	_spr_line.modulate.a = 0.5
 
 ## 指定のフルーツが落下完了したかどうか.
 ## @note 引数の型を指定するとnullのときに実行時エラーとなる.
