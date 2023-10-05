@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://b6l1ol3drb1s3"]
+
+[ext_resource type="FontFile" uid="uid://b7i6wgg73f4x3" path="res://assets/fonts/mplus-1m-regular.otf" id="1_xtsve"]
+
+[resource]
+line_spacing = 2.0
+font = ExtResource("1_xtsve")
+font_size = 32
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)

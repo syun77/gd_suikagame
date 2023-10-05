@@ -1,17 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://ma78kqfw7f7"]
+[gd_scene load_steps=18 format=3 uid="uid://ma78kqfw7f7"]
 
 [ext_resource type="PackedScene" uid="uid://bl0fa1266u1ui" path="res://src/Wall.tscn" id="1_oijm6"]
 [ext_resource type="Script" path="res://Main.gd" id="1_pv48b"]
 [ext_resource type="Texture2D" uid="uid://86dds1ju85p4" path="res://assets/images/bg.png" id="2_k5l3r"]
 [ext_resource type="Texture2D" uid="uid://bbks75eaawfht" path="res://assets/images/line.png" id="3_laf43"]
 [ext_resource type="Texture2D" uid="uid://bfdplg1uei8ql" path="res://assets/images/fruits/nasu.png" id="4_4ngh3"]
-[ext_resource type="FontFile" uid="uid://b7i6wgg73f4x3" path="res://assets/fonts/mplus-1m-regular.otf" id="5_lt4cj"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_cgrtv"]
-font = ExtResource("5_lt4cj")
-font_size = 32
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
+[ext_resource type="LabelSettings" uid="uid://b6l1ol3drb1s3" path="res://assets/fonts/font_m.tres" id="6_la6a2"]
+[ext_resource type="Texture2D" uid="uid://chjq868at706u" path="res://assets/images/fruits/xbox.png" id="7_qswyg"]
+[ext_resource type="Texture2D" uid="uid://bq2b3hbbrenat" path="res://assets/images/fruits/pudding.png" id="8_56qcn"]
+[ext_resource type="Texture2D" uid="uid://cc1fupgn2nkqp" path="res://assets/images/fruits/milk.png" id="9_knyi6"]
+[ext_resource type="Texture2D" uid="uid://bx1r7gcf7ti4u" path="res://assets/images/fruits/5box.png" id="10_pgpkf"]
+[ext_resource type="Texture2D" uid="uid://3xyotjnmkxlo" path="res://assets/images/fruits/nya.png" id="11_x0aan"]
+[ext_resource type="Texture2D" uid="uid://bg47kuj4r3tlp" path="res://assets/images/fruits/tako.png" id="12_t62x5"]
+[ext_resource type="Texture2D" uid="uid://bpep1q5ku1bwi" path="res://assets/images/fruits/banana.png" id="13_wo8dq"]
+[ext_resource type="Texture2D" uid="uid://buyynkysxlr6j" path="res://assets/images/fruits/pocky.png" id="14_6i5f7"]
+[ext_resource type="Texture2D" uid="uid://cj31wsul4equs" path="res://assets/images/fruits/radish.png" id="15_31kmj"]
+[ext_resource type="Texture2D" uid="uid://cjcltm7fhf6mu" path="res://assets/images/fruits/carrot.png" id="16_bo7ty"]
+[ext_resource type="Texture2D" uid="uid://b6tj3wl1dsj17" path="res://assets/images/fruits/bullet.png" id="17_q82em"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_pv48b")
@@ -62,4 +67,84 @@ offset_top = 64.0
 offset_right = 230.0
 offset_bottom = 112.0
 text = "Debug Label"
-label_settings = SubResource("LabelSettings_cgrtv")
+label_settings = ExtResource("6_la6a2")
+
+[node name="Evolution" type="Node2D" parent="UILayer"]
+position = Vector2(904, 32)
+
+[node name="Xbox" type="Sprite2D" parent="UILayer/Evolution"]
+position = Vector2(24, 24)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_qswyg")
+
+[node name="Pudding" type="Sprite2D" parent="UILayer/Evolution"]
+position = Vector2(24, 72)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_56qcn")
+
+[node name="Milk" type="Sprite2D" parent="UILayer/Evolution"]
+position = Vector2(24, 120)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("9_knyi6")
+
+[node name="5Box" type="Sprite2D" parent="UILayer/Evolution"]
+position = Vector2(24, 168)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("10_pgpkf")
+
+[node name="Nya" type="Sprite2D" parent="UILayer/Evolution"]
+position = Vector2(24, 216)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("11_x0aan")
+
+[node name="Tako" type="Sprite2D" parent="UILayer/Evolution"]
+position = Vector2(24, 264)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("12_t62x5")
+
+[node name="Nasu" type="Sprite2D" parent="UILayer/Evolution"]
+position = Vector2(24, 312)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_4ngh3")
+
+[node name="Banana" type="Sprite2D" parent="UILayer/Evolution"]
+position = Vector2(24, 360)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("13_wo8dq")
+
+[node name="Pocky" type="Sprite2D" parent="UILayer/Evolution"]
+position = Vector2(24, 408)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("14_6i5f7")
+
+[node name="Radish" type="Sprite2D" parent="UILayer/Evolution"]
+position = Vector2(24, 456)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("15_31kmj")
+
+[node name="Carrot" type="Sprite2D" parent="UILayer/Evolution"]
+position = Vector2(24, 504)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("16_bo7ty")
+
+[node name="Bullet" type="Sprite2D" parent="UILayer/Evolution"]
+position = Vector2(24, 552)
+texture = ExtResource("17_q82em")
+
+[node name="Label" type="Label" parent="UILayer/Evolution"]
+offset_left = 56.0
+offset_right = 96.0
+offset_bottom = 23.0
+text = "x 0
+x 0
+x 0
+x 0
+x 0
+x 0
+x 0
+x 0
+x 0
+x 0
+x 0
+x 0"
+label_settings = ExtResource("6_la6a2")
