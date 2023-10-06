@@ -37,6 +37,7 @@ enum eState {
 @onready var _ui_layer = $UILayer
 @onready var _ui_now_fruit = $UILayer/NowFruit
 @onready var _ui_dbg_label = $UILayer/DbgLabel
+@onready var _ui_evolution_label = $UILayer/Evolution/Label
 
 # -----------------------------------------------
 # var.
@@ -165,15 +166,7 @@ func _is_dropped(node) -> bool:
 
 ## 更新 > UI.
 func _update_ui() -> void:
-	pass
-	
-## 更新 > デバッグ.
-func _update_debug() -> void:
-	if Input.is_action_just_pressed("reset"):
-		# リセット.
-		get_tree().change_scene_to_file("res://Main.tscn")
-
-	# 生成数をカウントする.
+	# フルーツの生成数をカウントする.
 	var tbl = {}
 	for obj in _fruit_layer.get_children():
 		var fruit = obj as Fruit
@@ -182,7 +175,18 @@ func _update_debug() -> void:
 			tbl[id] += 1 # 登録済みならカウントアップ.
 		else:
 			tbl[id] = 1 # 未登録なら登録する.
-	_ui_dbg_label.text = ""
-	for id in tbl.keys():
+	_ui_evolution_label.text = ""
+	var values = Fruit.eFruit.values()
+	values.reverse()
+	for id in values:
 		var s = Fruit.get_fruit_name(id)
-		_ui_dbg_label.text += s + ":%d\n"%tbl[id]
+		if id in tbl:
+			_ui_evolution_label.text += s + ":%d\n"%tbl[id]
+		else:
+			_ui_evolution_label.text += "\n"
+	
+## 更新 > デバッグ.
+func _update_debug() -> void:
+	if Input.is_action_just_pressed("reset"):
+		# リセット.
+		get_tree().change_scene_to_file("res://Main.tscn")
