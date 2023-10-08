@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://unv1wni44n26" path="res://assets/images/fruits/nya.png" id="2_3gvfp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uvqbf"]
-radius = 20.0
-height = 61.0333
+radius = 37.0788
+height = 108.406
 
 [node name="FruitNya" type="RigidBody2D"]
 max_contacts_reported = 8
@@ -14,10 +14,10 @@ script = ExtResource("1_dvtfy")
 id = 7
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_3gvfp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -6)
 rotation = 0.523599
 shape = SubResource("CapsuleShape2D_uvqbf")
 

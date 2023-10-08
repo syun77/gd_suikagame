@@ -24,6 +24,10 @@ Ease="*res://src/common/Ease.gd"
 
 window/dpi/allow_hidpi=false
 
+[editor]
+
+movie_writer/movie_file="../movie.avi"
+
 [input]
 
 click={

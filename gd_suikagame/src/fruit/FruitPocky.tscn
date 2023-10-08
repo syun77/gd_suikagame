@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://coivkyhfv8px4" path="res://assets/images/fruits/pocky.png" id="2_iv2hb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wh0o6"]
-height = 60.0
+radius = 13.0
+height = 84.0
 
 [node name="FruitPocky" type="RigidBody2D"]
 max_contacts_reported = 8
@@ -13,7 +14,7 @@ script = ExtResource("1_rfcjv")
 id = 3
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_iv2hb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

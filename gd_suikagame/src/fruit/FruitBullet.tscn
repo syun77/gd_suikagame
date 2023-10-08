@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cmxcbwt8hjjjw" path="res://assets/images/fruits/bullet.png" id="2_xjk3l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3b2j8"]
-radius = 12.0
+radius = 16.0
 
 [node name="FruitBullet" type="RigidBody2D"]
 max_contacts_reported = 8
@@ -12,6 +12,7 @@ contact_monitor = true
 script = ExtResource("1_upppv")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_xjk3l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

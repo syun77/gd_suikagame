@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://src/fruit/Fruit.gd" id="1_b7tp2"]
 [ext_resource type="Texture2D" uid="uid://crhjjgy7ldidi" path="res://assets/images/fruits/5box.png" id="2_pkr20"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r6328"]
-size = Vector2(54, 54)
+[sub_resource type="CircleShape2D" id="CircleShape2D_1cif2"]
+radius = 56.0
 
 [node name="Fruit5Box" type="RigidBody2D"]
 max_contacts_reported = 8
@@ -13,10 +13,10 @@ script = ExtResource("1_b7tp2")
 id = 8
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(1.1, 1.1)
 texture = ExtResource("2_pkr20")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_r6328")
+shape = SubResource("CircleShape2D_1cif2")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

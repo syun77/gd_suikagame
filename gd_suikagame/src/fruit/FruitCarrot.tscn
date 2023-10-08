@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://b6sv52878sptj" path="res://assets/images/fruits/carrot.png" id="2_kw7lc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7xkwk"]
-radius = 16.0
-height = 52.0
+radius = 12.0
+height = 42.0
 
 [node name="FruitCarrot" type="RigidBody2D"]
 max_contacts_reported = 8
@@ -14,7 +14,7 @@ script = ExtResource("1_qjssp")
 id = 1
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_kw7lc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

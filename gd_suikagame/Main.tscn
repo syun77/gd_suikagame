@@ -36,7 +36,8 @@ texture = ExtResource("3_laf43")
 offset = Vector2(0, 256)
 
 [node name="DeadLine" type="Sprite2D" parent="."]
-position = Vector2(576, 568)
+position = Vector2(576, 136)
+scale = Vector2(0.75, 1)
 texture = ExtResource("4_bkswg")
 
 [node name="Marker" type="Node2D" parent="."]

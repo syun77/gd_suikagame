@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbs04pbvj43fi"]
+[gd_scene load_steps=5 format=3 uid="uid://cbs04pbvj43fi"]
 
 [ext_resource type="Script" path="res://src/fruit/Fruit.gd" id="1_4j4ui"]
 [ext_resource type="Texture2D" uid="uid://by202g350fgiw" path="res://assets/images/fruits/pudding.png" id="2_4v7s4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3b2j8"]
-radius = 53.0094
+radius = 88.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hw7mo"]
+radius = 23.6354
+height = 210.397
 
 [node name="FruitPudding" type="RigidBody2D"]
 max_contacts_reported = 8
@@ -13,10 +17,22 @@ script = ExtResource("1_4j4ui")
 id = 10
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(1.1, 1.1)
 texture = ExtResource("2_4v7s4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 16)
 shape = SubResource("CircleShape2D_3b2j8")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-1.13687e-13, 48)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_hw7mo")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(56, -8.00001)
+rotation = 0.174533
+scale = Vector2(1, 1)
+shape = SubResource("CapsuleShape2D_hw7mo")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

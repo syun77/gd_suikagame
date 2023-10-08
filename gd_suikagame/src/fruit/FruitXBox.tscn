@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c0e855ot4gupe" path="res://assets/images/fruits/xbox.png" id="2_qo13w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3b2j8"]
-radius = 60.0333
+radius = 120.0
 
 [node name="FruitXBox" type="RigidBody2D"]
 max_contacts_reported = 8
@@ -13,7 +13,6 @@ script = ExtResource("1_tvba5")
 id = 11
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_qo13w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
