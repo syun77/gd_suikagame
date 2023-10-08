@@ -9,6 +9,9 @@ class_name Fruit
 # -----------------------------------------------
 const TIMER_HIT = 0.5 # ヒット時の点滅時間.
 const TIMER_SCALE = 0.3 # 出現時のスケール.
+# ライン超えのリミット.
+# (_progress()で減算されるので実質1秒)
+const TIMER_GAMEOVER = 1.0 * 2
 
 ## フルーツの種類.
 ## このIDの並び＝進化テーブル
@@ -105,15 +108,24 @@ func start_scale() -> void:
 	_scale_timer = TIMER_SCALE
 
 ## ゲームオーバーのラインを超えているかどうか.
-func check_gameover(delta:float) -> bool:
-	_gameover_timer += (delta * 2)
-	if _gameover_timer > 2.0:
-		# _progress()で減算されるので実質1秒.
-		# ライン超え.
-		return true
+func check_gameover(y:float, delta:float) -> bool:
+	if is_hit_even_once() == false:
+		return false # ヒットしていなければ対象外.
+		
+	if position.y < y:
+		# ライン超えしている
+		# 猶予時間.
+		_gameover_timer += (delta * 2)
+		if _gameover_timer > TIMER_GAMEOVER:
+			# ライン超え.
+			return true
 	
 	# セーフ.
 	return false
+
+## ライン超え時間の割合 (0.0〜1.0)
+func get_gameover_timer_rate() -> float:
+	return _gameover_timer / (TIMER_GAMEOVER)
 
 # -----------------------------------------------
 # private functions.

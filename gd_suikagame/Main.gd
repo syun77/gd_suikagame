@@ -39,6 +39,8 @@ enum eState {
 @onready var _ui_now_fruit = $UILayer/NowFruit
 @onready var _ui_dbg_label = $UILayer/DbgLabel
 @onready var _ui_evolution_label = $UILayer/Evolution/Label
+@onready var _ui_caption = $UILayer/Caption
+@onready var _ui_gauge = $UILayer/ProgressBar
 
 # -----------------------------------------------
 # var.
@@ -89,7 +91,7 @@ func _process(delta: float) -> void:
 		eState.MAIN:
 			_update_main(delta)
 		eState.DROP_WAIT:
-			_update_drop_wait()
+			_update_drop_wait(delta)
 		eState.GAME_OVER:
 			_update_game_over()
 
@@ -105,7 +107,9 @@ func _update_init() -> void:
 ## 更新 > メイン.	
 func _update_main(delta) -> void:
 	# ゲームオーバーチェック.
-	if _is_gameoveer(delta):
+	if _is_gameoveer(delta):		
+		# ゲームオーバー処理へ.
+		_start_gameover()
 		_state = eState.GAME_OVER
 		return
 	
@@ -127,7 +131,14 @@ func _update_main(delta) -> void:
 		_state = eState.DROP_WAIT
 
 ## 更新 > 落下完了待ち.
-func _update_drop_wait() -> void:
+func _update_drop_wait(delta:float) -> void:
+	# ゲームオーバーチェック.
+	if _is_gameoveer(delta):		
+		# ゲームオーバー処理へ.
+		_start_gameover()
+		_state = eState.GAME_OVER
+		return	
+	
 	if _is_dropped(_fruit) == false:
 		return # 落下完了待ち.
 	
@@ -172,11 +183,43 @@ func _is_dropped(node) -> bool:
 
 ## ゲームオーバーかどうか.
 func _is_gameoveer(delta:float) -> bool:
+	var max_rate = 0.0
+	var max_obj:Fruit = null
+	_ui_gauge.visible = false
+	
 	for obj in _fruit_layer.get_children():
 		var fruit = obj as Fruit
 		if fruit.check_gameover(_deadline.position.y, delta):
 			return true
+		# 少し強引だけれどもゲームオーバータイマーが最大のオブジェクトにゲージをつける.
+		var rate = fruit.get_gameover_timer_rate()
+		if rate > max_rate:
+			# 最大時間の更新.
+			max_rate = rate
+			max_obj = fruit
+	
+	if max_obj:
+		# ゲームオーバーゲージの表示.
+		_ui_gauge.visible = true
+		_ui_gauge.value = 100 * max_rate
+		_ui_gauge.position = max_obj.position
+	
 	return false
+
+## ゲームオーバー開始処理.
+func _start_gameover() -> void:
+	# 物理挙動を止める.
+	PhysicsServer2D.set_active(false)
+	for obj in _fruit_layer.get_children():
+		# フルーツの更新をすべて止める.
+		obj.set_physics_process(false)
+	
+	# キャプション表示.
+	_ui_caption.visible = true
+	# カーソルを非表示.
+	_spr_line.visible = false
+	_ui_now_fruit.visible = false
+
 
 ## 更新 > UI.
 func _update_ui() -> void:
@@ -203,4 +246,6 @@ func _update_ui() -> void:
 func _update_debug() -> void:
 	if Input.is_action_just_pressed("reset"):
 		# リセット.
+		# 物理を有効に戻す.
+		PhysicsServer2D.set_active(true)
 		get_tree().change_scene_to_file("res://Main.tscn")

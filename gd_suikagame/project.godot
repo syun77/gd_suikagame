@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 Common="*res://src/common/Common.gd"
 Ease="*res://src/common/Ease.gd"
 
+[display]
+
+window/dpi/allow_hidpi=false
+
 [input]
 
 click={

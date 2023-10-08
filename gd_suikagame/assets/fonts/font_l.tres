@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://ci0gmxa12joer"]
+
+[ext_resource type="FontFile" uid="uid://bnjl8185epvlr" path="res://assets/fonts/mplus-1m-regular.otf" id="1_mwv7f"]
+
+[resource]
+line_spacing = 2.0
+font = ExtResource("1_mwv7f")
+font_size = 64
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
