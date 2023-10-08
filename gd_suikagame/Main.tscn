@@ -72,6 +72,7 @@ visible = false
 texture = ExtResource("4_4ngh3")
 
 [node name="DbgLabel" type="Label" parent="UILayer"]
+visible = false
 offset_left = 40.0
 offset_top = 64.0
 offset_right = 230.0
@@ -194,5 +195,63 @@ fill_mode = 4
 texture_under = ExtResource("20_topfu")
 texture_progress = ExtResource("21_cfs7a")
 
+[node name="Next" type="Node2D" parent="UILayer"]
+position = Vector2(40, 144)
+
+[node name="Label" type="Label" parent="UILayer/Next"]
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 80.0
+offset_bottom = 56.0
+text = "NEXT"
+label_settings = ExtResource("6_la6a2")
+
+[node name="Sprite2D" type="Sprite2D" parent="UILayer/Next"]
+position = Vector2(128, 32)
+
+[node name="ColorRect" type="ColorRect" parent="UILayer/Next"]
+offset_left = 8.0
+offset_top = -8.0
+offset_right = 192.0
+color = Color(1, 1, 0, 0.258824)
+
+[node name="ColorRect2" type="ColorRect" parent="UILayer/Next"]
+offset_left = 8.0
+offset_top = 64.0
+offset_right = 192.0
+offset_bottom = 72.0
+color = Color(1, 1, 0, 0.258824)
+
+[node name="ColorRect3" type="ColorRect" parent="UILayer/Next"]
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 72.0
+color = Color(1, 1, 0, 0.258824)
+
+[node name="ColorRect4" type="ColorRect" parent="UILayer/Next"]
+offset_left = 184.0
+offset_right = 192.0
+offset_bottom = 64.0
+color = Color(1, 1, 0, 0.258824)
+
+[node name="Score" type="Label" parent="UILayer"]
+offset_left = 56.0
+offset_top = 80.0
+offset_right = 184.0
+offset_bottom = 128.0
+text = "SCORE: 0"
+label_settings = ExtResource("6_la6a2")
+metadata/_edit_use_anchors_ = true
+
+[node name="HiScore" type="Label" parent="UILayer"]
+offset_left = 48.0
+offset_top = 576.0
+offset_right = 176.0
+offset_bottom = 624.0
+text = "HI-SCORE: 0"
+label_settings = ExtResource("6_la6a2")
+metadata/_edit_use_anchors_ = true
+
 [node name="Bgm" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("22_7yljx")
+bus = &"BGM"

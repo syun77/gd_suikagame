@@ -2,12 +2,24 @@ extends Node
 # ===============================================
 # 共通スクリプト.
 # ===============================================
-# -----------------------------------------------
-# preload.
-# -----------------------------------------------
+# ----------------------------------------
+# consts
+# ----------------------------------------
+## 同時再生可能なサウンドの数.
+const MAX_SOUND = 8
+
 ## フルーツ登場タイマー.
 const TIMER_FRUIT_APPEAR = 1.0
 
+### SEテーブル.
+var _snd_tbl = {
+	"drop": "res://assets/sound/se/drop.wav",
+	"merge": "res://assets/sound/se/merge.wav",
+}
+
+# -----------------------------------------------
+# preload.
+# -----------------------------------------------
 ## フルーツテーブル.
 const FRUIT_TBL = {
 	Fruit.eFruit.BULLET: preload("res://src/fruit/FruitBullet.tscn"),
@@ -27,6 +39,8 @@ const FRUIT_TBL = {
 # -----------------------------------------------
 # var.
 # -----------------------------------------------
+var _snds:Array = []
+
 ## CanvasLayer.
 var _layers = {}
 
@@ -36,18 +50,44 @@ var _scale_tbl = {}
 ## フルーツの登場タイマーテーブル.
 var _fruit_timers = {}
 
+## スコア.
+var score:int = 0
+## ハイスコア.
+var hi_score:int = 0
+
 # -----------------------------------------------
 # public function.
 # -----------------------------------------------
 ## セットアップ.
 func setup(layers) -> void:
+	# スコア初期化.
+	score = 0
 	# フルーツタイマー初期化.
 	_fruit_timers.clear()
 	_layers = layers
+	
+	# AudioStreamPlayerをあらかじめ作っておく.
+	## SE.
+	for i in range(MAX_SOUND):
+		var snd = AudioStreamPlayer.new()
+		snd.bus = "SE"
+		#snd.volume_db = -4
+		add_child(snd)
+		_snds.append(snd)
 
 ## レイヤーの取得.
 func get_layer(layer_name:String) -> CanvasLayer:
 	return _layers[layer_name]
+	
+## スコア加算.
+func add_score(id:Fruit.eFruit) -> void:
+	# スコアの式は Σ(n-1)らしい....
+	var v = 0
+	for i in range(id, 0, -1):
+		v += i
+	score += v
+	if score > hi_score:
+		hi_score = score
 
 ## フルーツの生成.
 func create_fruit(id:Fruit.eFruit, is_deferred:bool=false) -> Fruit:
@@ -62,6 +102,10 @@ func create_fruit(id:Fruit.eFruit, is_deferred:bool=false) -> Fruit:
 		layer.call_deferred("add_child", fruit)
 		# フルーツタイマー設定.
 		_fruit_timers[id] = TIMER_FRUIT_APPEAR
+		# スコア加算.
+		add_score(id)
+		# マージSE.
+		Common.play_se("merge", 2)
 	else:
 		layer.add_child(fruit)
 	
@@ -95,7 +139,23 @@ func get_fruit_scale(id:Fruit.eFruit) -> Vector2:
 	# テーブルに登録.
 	_scale_tbl[id] = scale
 	return scale
+
+## SEの再生.
+## @note _sndsに事前登録が必要.
+## @param 再生するSEの名前
+func play_se(key:String, id:int=0) -> void:
+	if id < 0 or MAX_SOUND <= id:
+		push_error("不正なサウンドID %d"%id)
+		return
 	
+	if not key in _snd_tbl:
+		push_error("存在しないサウンド %s"%key)
+		return
+	
+	var snd = _snds[id]
+	snd.stream = load(_snd_tbl[key])
+	snd.play()
+
 # -----------------------------------------------
 # private function.
 # -----------------------------------------------

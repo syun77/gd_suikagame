@@ -10,8 +10,8 @@ class_name Fruit
 const TIMER_HIT = 0.5 # ヒット時の点滅時間.
 const TIMER_SCALE = 0.3 # 出現時のスケール.
 # ライン超えのリミット.
-# (_progress()で減算されるので実質1秒)
-const TIMER_GAMEOVER = 1.0 * 2
+# (_progress()で減算されるので実質3秒)
+const TIMER_GAMEOVER = 3.0 * 2
 
 ## フルーツの種類.
 ## このIDの並び＝進化テーブル
@@ -187,8 +187,8 @@ func _on_body_entered(body: Node) -> void:
 		fruit.position = pos
 		fruit.start_scale()
 	else:
-		# XBox同士は消滅するので何もしない.
-		pass
+		# XBox同士は消せない.
+		return
 	
 	# お互いに消滅する.
 	queue_free()

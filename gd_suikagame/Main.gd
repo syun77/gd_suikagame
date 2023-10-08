@@ -42,6 +42,9 @@ enum eState {
 @onready var _ui_caption = $UILayer/Caption
 @onready var _ui_gauge = $UILayer/ProgressBar
 @onready var _bgm = $Bgm
+@onready var _next = $UILayer/Next/Sprite2D
+@onready var _ui_score = $UILayer/Score
+@onready var _ui_hi_score = $UILayer/HiScore
 
 # -----------------------------------------------
 # var.
@@ -105,6 +108,8 @@ func _lot_fruit() -> void:
 	tbl.shuffle()
 	# 設定.
 	_next_fruit = tbl[0]
+	_next.texture = Fruit.get_fruit_tex(_next_fruit)
+	_next.scale = Common.get_fruit_scale(_next_fruit)
 	
 	_ui_now_fruit.texture = Fruit.get_fruit_tex(_now_fruit)	
 	_ui_now_fruit.scale = Common.get_fruit_scale(_now_fruit)
@@ -144,6 +149,7 @@ func _update_main(delta) -> void:
 	_update_cursor()
 	
 	if Input.is_action_just_pressed("click"):
+		Common.play_se("drop", 1)
 		# UIとしてのフルーツを非表示.
 		_ui_now_fruit.visible = false
 		_spr_line.visible = false
@@ -227,16 +233,21 @@ func _is_gameoveer(delta:float) -> bool:
 	
 	if max_obj:
 		# ゲームオーバーゲージの表示.
+		_bgm.pitch_scale = 0.75
+		AudioServer.set_bus_effect_enabled(1, 0, true) # ローパスフィルタを有効にする.
 		_ui_gauge.visible = true
 		_ui_gauge.value = 100 * max_rate
 		_ui_gauge.position = max_obj.position
-	
+	else:
+		AudioServer.set_bus_effect_enabled(1, 0, false) # ローパスフィルタを無効にする.
+		_bgm.pitch_scale = 1.0
+		
 	return false
 
 ## ゲームオーバー開始処理.
 func _start_gameover() -> void:
 	# BGMを止める.
-	_bgm.stop()
+	#_bgm.stop()
 	# 物理挙動を止める.
 	PhysicsServer2D.set_active(false)
 	for obj in _fruit_layer.get_children():
@@ -252,6 +263,10 @@ func _start_gameover() -> void:
 
 ## 更新 > UI.
 func _update_ui(delta:float) -> void:
+	# スコア更新.
+	_ui_score.text = "SCORE: %d"%Common.score
+	_ui_hi_score.text = "HI-SCORE: %d"%Common.hi_score
+	
 	# フルーツ登場タイマー反映.
 	Common.update_fruit_timer(delta)
 	for id in _evolution_sprs.keys():
