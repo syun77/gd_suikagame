@@ -8,6 +8,7 @@ class_name Fruit
 # const.
 # -----------------------------------------------
 const TIMER_HIT = 0.5 # ヒット時の点滅時間.
+const TIMER_SCALE = 0.3 # 出現時のスケール.
 
 ## フルーツの種類.
 ## このIDの並び＝進化テーブル
@@ -73,8 +74,9 @@ const TEXTURES = {
 # var.
 # -----------------------------------------------
 var _base_scale:Vector2
-var _hit_timer = 0.0 # 衝突タイマー.
+var _gameover_timer = 0.0 # ゲームオーバータイマー.
 var _hit_count = 0 # 他のオブジェクトと衝突した回数.
+var _scale_timer = 0.0 # 拡大縮小タイマー.
 
 # -----------------------------------------------
 # static functions.
@@ -98,6 +100,21 @@ func get_sprite_scale() -> Vector2:
 func is_hit_even_once() -> bool:
 	return _hit_count > 0
 
+## 出現時のスケール開始.
+func start_scale() -> void:
+	_scale_timer = TIMER_SCALE
+
+## ゲームオーバーのラインを超えているかどうか.
+func check_gameover(delta:float) -> bool:
+	_gameover_timer += (delta * 2)
+	if _gameover_timer > 2.0:
+		# _progress()で減算されるので実質1秒.
+		# ライン超え.
+		return true
+	
+	# セーフ.
+	return false
+
 # -----------------------------------------------
 # private functions.
 # -----------------------------------------------
@@ -108,11 +125,20 @@ func _ready() -> void:
 
 ## 更新.
 func _physics_process(delta: float) -> void:
+	
+	# 拡大縮小演出.
+	_spr.scale = _base_scale
+	if _scale_timer > 0:
+		_scale_timer -= delta
+		var rate = _scale_timer / TIMER_SCALE
+		rate = 1 + 0.1 * Ease.back_out(1 - rate)
+		_spr.scale *= Vector2(rate, rate)
+	
+	# ゲームオーバー赤点滅演出.
 	_spr.modulate = Color.WHITE
-	if _hit_timer > 0:
-		# ヒット点滅.
-		var rate = 1 - (_hit_timer / TIMER_HIT)
-		_hit_timer -= delta
+	if _gameover_timer > 0:
+		var rate = 1 - (_gameover_timer / TIMER_HIT)
+		_gameover_timer -= delta
 		var color = Color.RED
 		_spr.modulate = color.lerp(Color.WHITE, rate)
 		
@@ -134,7 +160,6 @@ func _on_body_entered(body: Node) -> void:
 		
 	# フルーツとヒットした.
 	var other = body as Fruit
-	_hit_timer = TIMER_HIT
 	if id != other.id:
 		return # 一致していないので何も起こらない.
 	
@@ -148,6 +173,7 @@ func _on_body_entered(body: Node) -> void:
 		# 進化するのでid+1
 		var fruit = Common.create_fruit(id+1, is_deferred)
 		fruit.position = pos
+		fruit.start_scale()
 	else:
 		# XBox同士は消滅するので何もしない.
 		pass

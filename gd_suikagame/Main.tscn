@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://ma78kqfw7f7"]
+[gd_scene load_steps=19 format=3 uid="uid://ma78kqfw7f7"]
 
 [ext_resource type="PackedScene" uid="uid://bl0fa1266u1ui" path="res://src/Wall.tscn" id="1_oijm6"]
 [ext_resource type="Script" path="res://Main.gd" id="1_pv48b"]
 [ext_resource type="Texture2D" uid="uid://86dds1ju85p4" path="res://assets/images/bg.png" id="2_k5l3r"]
 [ext_resource type="Texture2D" uid="uid://bbks75eaawfht" path="res://assets/images/line.png" id="3_laf43"]
 [ext_resource type="Texture2D" uid="uid://bfdplg1uei8ql" path="res://assets/images/fruits/nasu.png" id="4_4ngh3"]
+[ext_resource type="Texture2D" uid="uid://cc23xlv0mo0x4" path="res://assets/images/deadline.png" id="4_bkswg"]
 [ext_resource type="LabelSettings" uid="uid://b6l1ol3drb1s3" path="res://assets/fonts/font_m.tres" id="6_la6a2"]
 [ext_resource type="Texture2D" uid="uid://chjq868at706u" path="res://assets/images/fruits/xbox.png" id="7_qswyg"]
 [ext_resource type="Texture2D" uid="uid://bq2b3hbbrenat" path="res://assets/images/fruits/pudding.png" id="8_56qcn"]
@@ -30,6 +31,10 @@ texture = ExtResource("2_k5l3r")
 position = Vector2(576, 128)
 texture = ExtResource("3_laf43")
 offset = Vector2(0, 256)
+
+[node name="DeadLine" type="Sprite2D" parent="."]
+position = Vector2(576, 568)
+texture = ExtResource("4_bkswg")
 
 [node name="Marker" type="Node2D" parent="."]
 

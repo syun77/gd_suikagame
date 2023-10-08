@@ -29,6 +29,7 @@ enum eState {
 # -----------------------------------------------
 # onready.
 # -----------------------------------------------
+@onready var _deadline = $DeadLine
 @onready var _marker_left = $Marker/Left
 @onready var _marker_right = $Marker/Right
 @onready var _wall_layer = $WallLayer
@@ -86,7 +87,7 @@ func _process(delta: float) -> void:
 		eState.INIT:
 			_update_init()
 		eState.MAIN:
-			_update_main()
+			_update_main(delta)
 		eState.DROP_WAIT:
 			_update_drop_wait()
 		eState.GAME_OVER:
@@ -102,7 +103,12 @@ func _update_init() -> void:
 	_state = eState.MAIN
 
 ## 更新 > メイン.	
-func _update_main() -> void:
+func _update_main(delta) -> void:
+	# ゲームオーバーチェック.
+	if _is_gameoveer(delta):
+		_state = eState.GAME_OVER
+		return
+	
 	# カーソルの更新.
 	_update_cursor()
 	
@@ -162,6 +168,14 @@ func _is_dropped(node) -> bool:
 		return true # 一度でも他のオブジェクトに接触した.
 	
 	# 落下完了していない.
+	return false
+
+## ゲームオーバーかどうか.
+func _is_gameoveer(delta:float) -> bool:
+	for obj in _fruit_layer.get_children():
+		var fruit = obj as Fruit
+		if fruit.check_gameover(_deadline.position.y, delta):
+			return true
 	return false
 
 ## 更新 > UI.
