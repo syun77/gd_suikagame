@@ -42,23 +42,23 @@ texture = ExtResource("4_bkswg")
 [node name="Marker" type="Node2D" parent="."]
 
 [node name="Left" type="Marker2D" parent="Marker"]
-position = Vector2(360, 128)
+position = Vector2(416, 128)
 
 [node name="Right" type="Marker2D" parent="Marker"]
-position = Vector2(800, 128)
+position = Vector2(736, 128)
 
 [node name="WallLayer" type="CanvasLayer" parent="."]
 
 [node name="Wall" parent="WallLayer" instance=ExtResource("1_oijm6")]
-position = Vector2(320, 64)
+position = Vector2(384, 64)
 scale = Vector2(0.08, 9.12)
 
 [node name="Wall3" parent="WallLayer" instance=ExtResource("1_oijm6")]
 position = Vector2(576, 640)
-scale = Vector2(4.12, 0.199999)
+scale = Vector2(3.08, 0.199999)
 
 [node name="Wall2" parent="WallLayer" instance=ExtResource("1_oijm6")]
-position = Vector2(832, 64)
+position = Vector2(768, 64)
 scale = Vector2(0.08, 9.12)
 
 [node name="FruitLayer" type="CanvasLayer" parent="."]
