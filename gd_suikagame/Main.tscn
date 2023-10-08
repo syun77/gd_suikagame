@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ma78kqfw7f7"]
+[gd_scene load_steps=23 format=3 uid="uid://ma78kqfw7f7"]
 
 [ext_resource type="PackedScene" uid="uid://bl0fa1266u1ui" path="res://src/Wall.tscn" id="1_oijm6"]
 [ext_resource type="Script" path="res://Main.gd" id="1_pv48b"]
@@ -21,6 +21,7 @@
 [ext_resource type="LabelSettings" uid="uid://ci0gmxa12joer" path="res://assets/fonts/font_l.tres" id="19_jpi46"]
 [ext_resource type="Texture2D" uid="uid://bro55p3g1imuh" path="res://assets/images/gauge_under.png" id="20_topfu"]
 [ext_resource type="Texture2D" uid="uid://dohq48jhepu3o" path="res://assets/images/gauge_progress.png" id="21_cfs7a"]
+[ext_resource type="AudioStream" uid="uid://bav6ooqlvwhsw" path="res://assets/sound/bgm/bgm01_130.mp3" id="22_7yljx"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_pv48b")
@@ -192,3 +193,6 @@ offset_bottom = 64.0
 fill_mode = 4
 texture_under = ExtResource("20_topfu")
 texture_progress = ExtResource("21_cfs7a")
+
+[node name="Bgm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_7yljx")

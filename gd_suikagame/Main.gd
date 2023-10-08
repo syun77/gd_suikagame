@@ -41,6 +41,7 @@ enum eState {
 @onready var _ui_evolution_label = $UILayer/Evolution/Label
 @onready var _ui_caption = $UILayer/Caption
 @onready var _ui_gauge = $UILayer/ProgressBar
+@onready var _bgm = $Bgm
 
 # -----------------------------------------------
 # var.
@@ -53,6 +54,12 @@ var _now_fruit = Fruit.eFruit.BULLET
 var _next_fruit = Fruit.eFruit.BULLET
 ## 落下させたフルーツ.
 var _fruit:Fruit = null
+## BGMの状態.
+var _bgm_id = 0
+## 進化の環.
+var _evolution_sprs = {}
+## 進化の環のスケール.
+var _evolution_scales = {}
 
 # -----------------------------------------------
 # private function.
@@ -67,6 +74,26 @@ func _ready() -> void:
 	}
 	# セットアップ.
 	Common.setup(layers)
+	
+	# 進化画像.
+	_evolution_sprs[Fruit.eFruit.BULLET] = $UILayer/Evolution/Bullet
+	_evolution_sprs[Fruit.eFruit.CARROT] = $UILayer/Evolution/Carrot
+	_evolution_sprs[Fruit.eFruit.RADISH] = $UILayer/Evolution/Radish
+	_evolution_sprs[Fruit.eFruit.POCKY] = $UILayer/Evolution/Pocky
+	_evolution_sprs[Fruit.eFruit.BANANA] = $UILayer/Evolution/Banana
+	_evolution_sprs[Fruit.eFruit.NASU] = $UILayer/Evolution/Nasu
+	_evolution_sprs[Fruit.eFruit.TAKO] = $UILayer/Evolution/Tako
+	_evolution_sprs[Fruit.eFruit.NYA] = $UILayer/Evolution/Nya
+	_evolution_sprs[Fruit.eFruit.FIVE_BOX] = get_node("UILayer/Evolution/5Box")
+	_evolution_sprs[Fruit.eFruit.MILK] = $UILayer/Evolution/Milk
+	_evolution_sprs[Fruit.eFruit.PUDDING] = $UILayer/Evolution/Pudding
+	_evolution_sprs[Fruit.eFruit.XBOX] = $UILayer/Evolution/Xbox
+	# 基準スケール値を保持.
+	for id in _evolution_sprs.keys():
+		_evolution_scales[id] = _evolution_sprs[id].scale
+	
+	# BGM再生.
+	_bgm.play()
 	
 # 次のフルーツを抽選する.
 # ※正確には次の次のフルーツ.
@@ -95,7 +122,7 @@ func _process(delta: float) -> void:
 		eState.GAME_OVER:
 			_update_game_over()
 
-	_update_ui()
+	_update_ui(delta)
 	_update_debug()
 
 ## 更新 > 初期化.
@@ -208,6 +235,8 @@ func _is_gameoveer(delta:float) -> bool:
 
 ## ゲームオーバー開始処理.
 func _start_gameover() -> void:
+	# BGMを止める.
+	_bgm.stop()
 	# 物理挙動を止める.
 	PhysicsServer2D.set_active(false)
 	for obj in _fruit_layer.get_children():
@@ -222,9 +251,20 @@ func _start_gameover() -> void:
 
 
 ## 更新 > UI.
-func _update_ui() -> void:
+func _update_ui(delta:float) -> void:
+	# フルーツ登場タイマー反映.
+	Common.update_fruit_timer(delta)
+	for id in _evolution_sprs.keys():
+		var t = Common.get_fruit_timer(id)
+		var scale = _evolution_scales[id]
+		if t > 0:
+			var rate = 1 + Ease.elastic_out(1 - t)
+			scale *= (Vector2.ONE * rate)
+		_evolution_sprs[id].scale = scale
+	
 	# フルーツの生成数をカウントする.
 	var tbl = {}
+	var max_id = Fruit.eFruit.BULLET
 	for obj in _fruit_layer.get_children():
 		var fruit = obj as Fruit
 		var id = fruit.id
@@ -232,6 +272,23 @@ func _update_ui() -> void:
 			tbl[id] += 1 # 登録済みならカウントアップ.
 		else:
 			tbl[id] = 1 # 未登録なら登録する.
+		if max_id < id:
+			# 最のIDを更新.
+			max_id = id
+	
+	if max_id >= Fruit.eFruit.XBOX:
+		if _bgm_id < 2:
+			# XBOXが出たらBGM変更.
+			_bgm.stream = load("res://assets/sound/bgm/bgm03_140.mp3")
+			_bgm.play()
+			_bgm_id = 2
+	elif max_id >= Fruit.eFruit.MILK:
+		if _bgm_id < 1:
+			# 牛乳が出たらBGM変更.
+			_bgm.stream = load("res://assets/sound/bgm/bgm02_140.mp3")
+			_bgm.play()
+			_bgm_id = 1
+	
 	_ui_evolution_label.text = ""
 	var values = Fruit.eFruit.values()
 	values.reverse()
