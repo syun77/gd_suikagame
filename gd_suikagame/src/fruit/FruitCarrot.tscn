@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bn7yohjny6sls"]
 
 [ext_resource type="Script" path="res://src/fruit/Fruit.gd" id="1_qjssp"]
-[ext_resource type="Texture2D" uid="uid://cjcltm7fhf6mu" path="res://assets/images/fruits/carrot.png" id="2_kw7lc"]
+[ext_resource type="Texture2D" uid="uid://b6sv52878sptj" path="res://assets/images/fruits/carrot.png" id="2_kw7lc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7xkwk"]
 radius = 16.0

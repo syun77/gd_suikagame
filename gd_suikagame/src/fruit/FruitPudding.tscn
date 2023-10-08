@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cbs04pbvj43fi"]
 
 [ext_resource type="Script" path="res://src/fruit/Fruit.gd" id="1_4j4ui"]
-[ext_resource type="Texture2D" uid="uid://bq2b3hbbrenat" path="res://assets/images/fruits/pudding.png" id="2_4v7s4"]
+[ext_resource type="Texture2D" uid="uid://by202g350fgiw" path="res://assets/images/fruits/pudding.png" id="2_4v7s4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3b2j8"]
 radius = 53.0094
