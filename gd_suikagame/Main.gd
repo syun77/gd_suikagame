@@ -29,22 +29,29 @@ enum eState {
 # -----------------------------------------------
 # onready.
 # -----------------------------------------------
+# ゲームオーバーの線.
 @onready var _deadline = $DeadLine
+# 左右の移動可能範囲.
 @onready var _marker_left = $Marker/Left
 @onready var _marker_right = $Marker/Right
+# 補助線.
+@onready var _spr_line = $Line
+# CanvasLayer.
 @onready var _wall_layer = $WallLayer
 @onready var _fruit_layer = $FruitLayer
-@onready var _spr_line = $Line
+@onready var _particle_layer = $ParticleLayer
 @onready var _ui_layer = $UILayer
+# UI.
 @onready var _ui_now_fruit = $UILayer/NowFruit
 @onready var _ui_dbg_label = $UILayer/DbgLabel
 @onready var _ui_evolution_label = $UILayer/Evolution/Label
 @onready var _ui_caption = $UILayer/Caption
 @onready var _ui_gauge = $UILayer/ProgressBar
-@onready var _bgm = $Bgm
-@onready var _next = $UILayer/Next/Sprite2D
+@onready var _ui_next = $UILayer/Next/Sprite2D
 @onready var _ui_score = $UILayer/Score
 @onready var _ui_hi_score = $UILayer/HiScore
+# サウンド.
+@onready var _bgm = $Bgm
 
 # -----------------------------------------------
 # var.
@@ -73,6 +80,7 @@ func _ready() -> void:
 	var layers = {
 		"wall": _wall_layer,
 		"fruit": _fruit_layer,
+		"particle": _particle_layer,
 		"ui": _ui_layer,
 	}
 	# セットアップ.
@@ -99,7 +107,6 @@ func _ready() -> void:
 	_bgm.play()
 	
 # 次のフルーツを抽選する.
-# ※正確には次の次のフルーツ.
 func _lot_fruit() -> void:
 	_now_fruit = _next_fruit
 	# コピー.
@@ -108,8 +115,8 @@ func _lot_fruit() -> void:
 	tbl.shuffle()
 	# 設定.
 	_next_fruit = tbl[0]
-	_next.texture = Fruit.get_fruit_tex(_next_fruit)
-	_next.scale = Common.get_fruit_scale(_next_fruit)
+	_ui_next.texture = Fruit.get_fruit_tex(_next_fruit)
+	_ui_next.scale = Common.get_fruit_scale(_next_fruit)
 	
 	_ui_now_fruit.texture = Fruit.get_fruit_tex(_now_fruit)	
 	_ui_now_fruit.scale = Common.get_fruit_scale(_now_fruit)

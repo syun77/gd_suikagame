@@ -183,7 +183,7 @@ func _on_body_entered(body: Node) -> void:
 		# 遅延処理をしなければならない.
 		var is_deferred = true
 		# 進化するのでid+1
-		var fruit = Common.create_fruit(id+1, is_deferred)
+		var fruit = Common.create_fruit(id+1, is_deferred, pos)
 		fruit.position = pos
 		fruit.start_scale()
 	else:

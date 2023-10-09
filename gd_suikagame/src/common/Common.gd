@@ -80,7 +80,8 @@ func get_layer(layer_name:String) -> CanvasLayer:
 	return _layers[layer_name]
 	
 ## スコア加算.
-func add_score(id:Fruit.eFruit) -> void:
+## @return 加算したスコアの値.
+func add_score(id:Fruit.eFruit) -> int:
 	# スコアの式は Σ(n-1)らしい....
 	var v = 0
 	for i in range(id, 0, -1):
@@ -88,9 +89,15 @@ func add_score(id:Fruit.eFruit) -> void:
 	score += v
 	if score > hi_score:
 		hi_score = score
+	
+	return v
 
 ## フルーツの生成.
-func create_fruit(id:Fruit.eFruit, is_deferred:bool=false) -> Fruit:
+## @note ※遅延生成をする場合のみスコアが加算されます.
+## @param id フルーツID.
+## @param is_deferred 遅延生成するかどうか.
+## @param particle/pos スコアパーティクルを生成するときの座標.
+func create_fruit(id:Fruit.eFruit, is_deferred:bool=false, particle_pos:Vector2=Vector2.ZERO) -> Fruit:
 	# PackedSceneを取得.
 	var packed = FRUIT_TBL[id]
 	var fruit = packed.instantiate()
@@ -103,7 +110,9 @@ func create_fruit(id:Fruit.eFruit, is_deferred:bool=false) -> Fruit:
 		# フルーツタイマー設定.
 		_fruit_timers[id] = TIMER_FRUIT_APPEAR
 		# スコア加算.
-		add_score(id)
+		var score = add_score(id)
+		# スコア演出生成.
+		ParticleUtil.add_score(particle_pos, score)
 		# マージSE.
 		Common.play_se("merge", 2)
 	else:

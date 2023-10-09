@@ -65,6 +65,8 @@ scale = Vector2(0.08, 9.12)
 
 [node name="FruitLayer" type="CanvasLayer" parent="."]
 
+[node name="ParticleLayer" type="CanvasLayer" parent="."]
+
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="NowFruit" type="Sprite2D" parent="UILayer"]
