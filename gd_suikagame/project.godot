@@ -22,6 +22,7 @@ Ease="*res://src/common/Ease.gd"
 
 [display]
 
+window/stretch/mode="canvas_items"
 window/dpi/allow_hidpi=false
 
 [editor]
