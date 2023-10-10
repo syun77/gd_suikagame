@@ -7,7 +7,7 @@ class_name ParticleScore
 # ------------------------------------------------------------
 # const.
 # ------------------------------------------------------------
-const TIMER_MAIN = 2.0 # 表示時間.
+const TIMER_MAIN = 1.0 # 表示時間.
 const TIMER_VANISH = 0.5 # フェードアウト時間.
 const MOVE_SPEED = 10.0 # 移動速度.
 

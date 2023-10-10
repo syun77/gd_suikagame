@@ -1,6 +1,6 @@
 [gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://b6l1ol3drb1s3"]
 
-[ext_resource type="FontFile" uid="uid://bnjl8185epvlr" path="res://assets/fonts/mplus-1m-regular.otf" id="1_xtsve"]
+[ext_resource type="FontFile" uid="uid://b7i6wgg73f4x3" path="res://assets/fonts/mplus-1m-regular.otf" id="1_xtsve"]
 
 [resource]
 line_spacing = 2.0

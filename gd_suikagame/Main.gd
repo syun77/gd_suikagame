@@ -85,7 +85,15 @@ func _ready() -> void:
 	}
 	# セットアップ.
 	Common.setup(layers)
+
+	# 進化画像のセットアップ.
+	_setup_evolution()
 	
+	# BGM再生.
+	_bgm.play()
+
+## 進化画像のセットアップ.
+func _setup_evolution() -> void:
 	# 進化画像.
 	_evolution_sprs[Fruit.eFruit.BULLET] = $UILayer/Evolution/Bullet
 	_evolution_sprs[Fruit.eFruit.CARROT] = $UILayer/Evolution/Carrot
@@ -102,10 +110,7 @@ func _ready() -> void:
 	# 基準スケール値を保持.
 	for id in _evolution_sprs.keys():
 		_evolution_scales[id] = _evolution_sprs[id].scale
-	
-	# BGM再生.
-	_bgm.play()
-	
+
 # 次のフルーツを抽選する.
 func _lot_fruit() -> void:
 	_now_fruit = _next_fruit
