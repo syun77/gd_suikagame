@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ma78kqfw7f7"]
+[gd_scene load_steps=24 format=3 uid="uid://ma78kqfw7f7"]
 
 [ext_resource type="PackedScene" uid="uid://bl0fa1266u1ui" path="res://src/Wall.tscn" id="1_oijm6"]
 [ext_resource type="Script" path="res://Main.gd" id="1_pv48b"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://dtr0jbxbtwyh1" path="res://assets/images/gauge_under.png" id="20_topfu"]
 [ext_resource type="Texture2D" uid="uid://h1o42gwbdv80" path="res://assets/images/gauge_progress.png" id="21_cfs7a"]
 [ext_resource type="AudioStream" uid="uid://csw518yewt4o2" path="res://assets/sound/bgm/bgm01_130.mp3" id="22_7yljx"]
+[ext_resource type="LabelSettings" uid="uid://hgpq80s0wk7j" path="res://assets/fonts/font_s.tres" id="22_b3ye2"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_pv48b")
@@ -244,6 +245,16 @@ offset_bottom = 128.0
 text = "SCORE: 0"
 label_settings = ExtResource("6_la6a2")
 metadata/_edit_use_anchors_ = true
+
+[node name="SubLabel" type="Label" parent="UILayer/Score"]
+visible = false
+layout_mode = 0
+offset_left = 232.0
+offset_top = 12.0
+offset_right = 292.0
+offset_bottom = 39.0
+text = "+9999"
+label_settings = ExtResource("22_b3ye2")
 
 [node name="HiScore" type="Label" parent="UILayer"]
 offset_left = 48.0

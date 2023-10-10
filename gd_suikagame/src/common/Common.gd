@@ -54,6 +54,8 @@ var _fruit_timers = {}
 var score:int = 0
 ## ハイスコア.
 var hi_score:int = 0
+## 表示用加算スコア.
+var disp_add_score:int = 0
 
 # -----------------------------------------------
 # public function.
@@ -113,6 +115,8 @@ func create_fruit(id:Fruit.eFruit, is_deferred:bool=false, particle_pos:Vector2=
 		var score = add_score(id)
 		# スコア演出生成.
 		ParticleUtil.add_score(particle_pos, score)
+		# 表示用加算スコア.
+		disp_add_score += score
 		# マージSE.
 		Common.play_se("merge", 2)
 	else:

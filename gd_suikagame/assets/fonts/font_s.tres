@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://hgpq80s0wk7j"]
+
+[ext_resource type="FontFile" uid="uid://7cgeare685mr" path="res://assets/fonts/x12y12pxMaruMinya.ttf" id="1_p62ao"]
+
+[resource]
+font = ExtResource("1_p62ao")
+font_size = 24
+outline_size = 7
+outline_color = Color(0, 0.317647, 1, 0.564706)

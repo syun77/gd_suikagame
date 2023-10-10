@@ -49,6 +49,7 @@ enum eState {
 @onready var _ui_gauge = $UILayer/ProgressBar
 @onready var _ui_next = $UILayer/Next/Sprite2D
 @onready var _ui_score = $UILayer/Score
+@onready var _ui_score_sub = $UILayer/Score/SubLabel
 @onready var _ui_hi_score = $UILayer/HiScore
 # サウンド.
 @onready var _bgm = $Bgm
@@ -279,6 +280,14 @@ func _update_ui(delta:float) -> void:
 	_ui_score.text = "SCORE: %d"%Common.score
 	_ui_hi_score.text = "HI-SCORE: %d"%Common.hi_score
 	
+	if _count_score_particle() == 0:
+		# スコア演出が消えたらリセット.
+		Common.disp_add_score = 0
+		_ui_score_sub.visible = false
+	if Common.disp_add_score > 0:
+		_ui_score_sub.visible = true
+		_ui_score_sub.text = "(+%d)"%Common.disp_add_score
+	
 	# フルーツ登場タイマー反映.
 	Common.update_fruit_timer(delta)
 	for id in _evolution_sprs.keys():
@@ -325,7 +334,15 @@ func _update_ui(delta:float) -> void:
 			_ui_evolution_label.text += s + ":%d\n"%tbl[id]
 		else:
 			_ui_evolution_label.text += "\n"
-	
+
+## スコア演出オブジェクトをカウントする.
+func _count_score_particle() -> int:
+	var ret = 0
+	for obj in _particle_layer.get_children():
+		if obj is ParticleScore:
+			ret += 1
+	return ret
+
 ## 更新 > デバッグ.
 func _update_debug() -> void:
 	if Input.is_action_just_pressed("reset"):
