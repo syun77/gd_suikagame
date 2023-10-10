@@ -309,14 +309,26 @@ func _update_ui(delta:float) -> void:
 	
 	# BGMの更新.
 	if max_id >= Fruit.eFruit.XBOX:
-		if _bgm_id < 2:
+		if _bgm_id < 4:
 			# XBOXが出たらBGM変更.
+			_bgm.stream = load("res://assets/sound/bgm/bgm05_140.mp3")
+			_bgm.play()
+			_bgm_id = 5
+	elif max_id >= Fruit.eFruit.PUDDING:
+		if _bgm_id < 3:
+			# プリンが出たらBGM変更.
+			_bgm.stream = load("res://assets/sound/bgm/bgm04_110.mp3")
+			_bgm.play()
+			_bgm_id = 3 
+	elif max_id >= Fruit.eFruit.MILK:
+		if _bgm_id < 2:
+			# 牛乳が出たらBGM変更.
 			_bgm.stream = load("res://assets/sound/bgm/bgm03_140.mp3")
 			_bgm.play()
 			_bgm_id = 2
-	elif max_id >= Fruit.eFruit.MILK:
+	elif max_id >= Fruit.eFruit.FIVE_BOX:
 		if _bgm_id < 1:
-			# 牛乳が出たらBGM変更.
+			# 5箱が出たらBGM変更.
 			_bgm.stream = load("res://assets/sound/bgm/bgm02_140.mp3")
 			_bgm.play()
 			_bgm_id = 1
