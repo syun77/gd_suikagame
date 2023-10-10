@@ -119,17 +119,19 @@ func _lot_fruit() -> void:
 	var tbl = NEXT_TBL.duplicate()
 	# シャッフル.
 	tbl.shuffle()
-	# 設定.
+	# NEXTのフルーツを設定.
 	_next_fruit = tbl[0]
 	_ui_next.texture = Fruit.get_fruit_tex(_next_fruit)
 	_ui_next.scale = Common.get_fruit_scale(_next_fruit)
 	
+	# 落下させるフルーツを設定.
 	_ui_now_fruit.texture = Fruit.get_fruit_tex(_now_fruit)	
 	_ui_now_fruit.scale = Common.get_fruit_scale(_now_fruit)
 	_ui_now_fruit.modulate.a = 0.5
 
 ## 更新.
 func _process(delta: float) -> void:
+	# 状態に合わせた更新.
 	match _state:
 		eState.INIT:
 			_update_init()
@@ -140,7 +142,9 @@ func _process(delta: float) -> void:
 		eState.GAME_OVER:
 			_update_game_over()
 
+	# UIの更新.
 	_update_ui(delta)
+	# デバッグの更新.
 	_update_debug()
 
 ## 更新 > 初期化.
@@ -151,6 +155,9 @@ func _update_init() -> void:
 
 ## 更新 > メイン.	
 func _update_main(delta) -> void:
+	# ゲームオーバーゲージの更新.
+	_update_dead_line_gauge()
+	
 	# ゲームオーバーチェック.
 	if _is_gameoveer(delta):		
 		# ゲームオーバー処理へ.
@@ -162,6 +169,7 @@ func _update_main(delta) -> void:
 	_update_cursor()
 	
 	if Input.is_action_just_pressed("click"):
+		# クリックした.
 		Common.play_se("drop", 1)
 		# UIとしてのフルーツを非表示.
 		_ui_now_fruit.visible = false
@@ -178,6 +186,10 @@ func _update_main(delta) -> void:
 
 ## 更新 > 落下完了待ち.
 func _update_drop_wait(delta:float) -> void:
+	
+	# ゲームオーバーゲージの更新.
+	_update_dead_line_gauge()
+
 	# ゲームオーバーチェック.
 	if _is_gameoveer(delta):		
 		# ゲームオーバー処理へ.
@@ -229,32 +241,13 @@ func _is_dropped(node) -> bool:
 
 ## ゲームオーバーかどうか.
 func _is_gameoveer(delta:float) -> bool:
-	var max_rate = 0.0
-	var max_obj:Fruit = null
-	_ui_gauge.visible = false
-	
 	for obj in _fruit_layer.get_children():
 		var fruit = obj as Fruit
 		if fruit.check_gameover(_deadline.position.y, delta):
+			# ゲームオーバー猶予時間を超えた.
 			return true
-		# 少し強引だけれどもゲームオーバータイマーが最大のオブジェクトにゲージをつける.
-		var rate = fruit.get_gameover_timer_rate()
-		if rate > max_rate:
-			# 最大時間の更新.
-			max_rate = rate
-			max_obj = fruit
 	
-	if max_obj:
-		# ゲームオーバーゲージの表示.
-		_bgm.pitch_scale = 0.75
-		AudioServer.set_bus_effect_enabled(1, 0, true) # ローパスフィルタを有効にする.
-		_ui_gauge.visible = true
-		_ui_gauge.value = 100 * max_rate
-		_ui_gauge.position = max_obj.position
-	else:
-		AudioServer.set_bus_effect_enabled(1, 0, false) # ローパスフィルタを無効にする.
-		_bgm.pitch_scale = 1.0
-		
+	# ゲームオーバーでない.
 	return false
 
 ## ゲームオーバー開始処理.
@@ -280,11 +273,13 @@ func _update_ui(delta:float) -> void:
 	_ui_score.text = "SCORE: %d"%Common.score
 	_ui_hi_score.text = "HI-SCORE: %d"%Common.hi_score
 	
+	# 加算スコア.
 	if _count_score_particle() == 0:
 		# スコア演出が消えたらリセット.
 		Common.disp_add_score = 0
 		_ui_score_sub.visible = false
 	if Common.disp_add_score > 0:
+		# 加算スコアを表示.
 		_ui_score_sub.visible = true
 		_ui_score_sub.text = "(+%d)"%Common.disp_add_score
 	
@@ -312,6 +307,7 @@ func _update_ui(delta:float) -> void:
 			# 最のIDを更新.
 			max_id = id
 	
+	# BGMの更新.
 	if max_id >= Fruit.eFruit.XBOX:
 		if _bgm_id < 2:
 			# XBOXが出たらBGM変更.
@@ -325,6 +321,7 @@ func _update_ui(delta:float) -> void:
 			_bgm.play()
 			_bgm_id = 1
 	
+	# 進化の環の更新.
 	_ui_evolution_label.text = ""
 	var values = Fruit.eFruit.values()
 	values.reverse()
@@ -334,6 +331,36 @@ func _update_ui(delta:float) -> void:
 			_ui_evolution_label.text += s + ":%d\n"%tbl[id]
 		else:
 			_ui_evolution_label.text += "\n"
+
+## ゲームオーバーのラインを超えているときに表示するゲージの更新.
+func _update_dead_line_gauge() -> void:
+	var max_rate = 0.0 # 最大の割合.
+	var max_obj:Fruit = null # ゲームオーバーのライン超えしているフルーツ.
+	
+	# ゲームオーバータイマーが最大のオブジェクトを探す.
+	for obj in _fruit_layer.get_children():
+		var fruit = obj as Fruit
+		# ゲームオーバータイマーが最大のオブジェクトにゲージをつける.
+		var rate = fruit.get_gameover_timer_rate()
+		if rate > max_rate:
+			# 最大時間の更新.
+			max_rate = rate
+			max_obj = fruit
+	
+	if max_obj:
+		# ゲームオーバーゲージの表示.
+		var pitch = 1 - (0.5 * max_rate)
+		pitch = max(0.75, pitch) # ピッチの最低値は "0.75"
+		_bgm.pitch_scale = pitch # ピッチを下げる.
+		AudioServer.set_bus_effect_enabled(1, 0, true) # ローパスフィルタを有効にする.
+		_ui_gauge.visible = true
+		_ui_gauge.value = 100 * max_rate
+		_ui_gauge.position = max_obj.position
+	else:
+		# ゲージを消しておく.
+		_ui_gauge.visible = false
+		AudioServer.set_bus_effect_enabled(1, 0, false) # ローパスフィルタを無効にする.
+		_bgm.pitch_scale = 1.0 # ピッチを戻す.
 
 ## スコア演出オブジェクトをカウントする.
 func _count_score_particle() -> int:
