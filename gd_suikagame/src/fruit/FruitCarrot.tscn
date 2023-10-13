@@ -2,7 +2,7 @@
 
 [ext_resource type="PhysicsMaterial" uid="uid://cx5k6fc767w7c" path="res://assets/fruit_physics_material.tres" id="1_pu6rd"]
 [ext_resource type="Script" path="res://src/fruit/Fruit.gd" id="1_qjssp"]
-[ext_resource type="Texture2D" uid="uid://cjcltm7fhf6mu" path="res://assets/images/fruits/carrot.png" id="2_kw7lc"]
+[ext_resource type="Texture2D" uid="uid://b6sv52878sptj" path="res://assets/images/fruits/carrot.png" id="2_kw7lc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7xkwk"]
 radius = 12.0

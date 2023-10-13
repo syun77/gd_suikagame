@@ -67,9 +67,9 @@ var _next_fruit = Fruit.eFruit.BULLET
 var _fruit:Fruit = null
 ## BGMの状態.
 var _bgm_id = 0
-## 進化の環.
+## 進化の輪.
 var _evolution_sprs = {}
-## 進化の環のスケール.
+## 進化の輪のスケール.
 var _evolution_scales = {}
 
 # -----------------------------------------------
@@ -333,7 +333,7 @@ func _update_ui(delta:float) -> void:
 			_bgm.play()
 			_bgm_id = 1
 	
-	# 進化の環の更新.
+	# 進化の輪の更新.
 	_ui_evolution_label.text = ""
 	var values = Fruit.eFruit.values()
 	values.reverse()
