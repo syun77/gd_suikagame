@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://0nkvo1aeb7r3"]
 
-[ext_resource type="Script" path="res://src/fruit/Fruit.gd" id="1_7t4nl"]
+[ext_resource type="Script" uid="uid://cr86wvdl143o3" path="res://src/fruit/Fruit.gd" id="1_7t4nl"]
 [ext_resource type="PhysicsMaterial" uid="uid://cx5k6fc767w7c" path="res://assets/fruit_physics_material.tres" id="1_ydxfa"]
-[ext_resource type="Texture2D" uid="uid://bfdplg1uei8ql" path="res://assets/images/fruits/nasu.png" id="2_26aa7"]
+[ext_resource type="Texture2D" uid="uid://7glji5pwsndi" path="res://assets/images/fruits/nasu.png" id="2_26aa7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3b2j8"]
 radius = 48.0

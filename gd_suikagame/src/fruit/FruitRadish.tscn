@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://bcbb1hltbq3y7"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://cx5k6fc767w7c" path="res://assets/fruit_physics_material.tres" id="1_3jjwf"]
-[ext_resource type="Script" path="res://src/fruit/Fruit.gd" id="1_s3d1b"]
-[ext_resource type="Texture2D" uid="uid://cj31wsul4equs" path="res://assets/images/fruits/radish.png" id="2_b6ycd"]
+[ext_resource type="Script" uid="uid://cr86wvdl143o3" path="res://src/fruit/Fruit.gd" id="1_s3d1b"]
+[ext_resource type="Texture2D" uid="uid://bf16ywylbkvxl" path="res://assets/images/fruits/radish.png" id="2_b6ycd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t0vof"]
 radius = 16.0

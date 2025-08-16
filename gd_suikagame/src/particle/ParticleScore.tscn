@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c3eiawiwxmrff"]
 
-[ext_resource type="Script" path="res://src/particle/ParticleScore.gd" id="1_vg5g8"]
+[ext_resource type="Script" uid="uid://b7qdlqriba5as" path="res://src/particle/ParticleScore.gd" id="1_vg5g8"]
 [ext_resource type="FontFile" uid="uid://dew0vnmda5y64" path="res://assets/fonts/x12y12pxMaruMinya.ttf" id="2_xrq78"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_603r6"]

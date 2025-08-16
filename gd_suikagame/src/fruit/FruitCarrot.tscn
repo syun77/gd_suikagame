@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bn7yohjny6sls"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://cx5k6fc767w7c" path="res://assets/fruit_physics_material.tres" id="1_pu6rd"]
-[ext_resource type="Script" path="res://src/fruit/Fruit.gd" id="1_qjssp"]
+[ext_resource type="Script" uid="uid://cr86wvdl143o3" path="res://src/fruit/Fruit.gd" id="1_qjssp"]
 [ext_resource type="Texture2D" uid="uid://b6sv52878sptj" path="res://assets/images/fruits/carrot.png" id="2_kw7lc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7xkwk"]
@@ -10,8 +10,8 @@ height = 42.0
 
 [node name="FruitCarrot" type="RigidBody2D"]
 physics_material_override = ExtResource("1_pu6rd")
-max_contacts_reported = 8
 contact_monitor = true
+max_contacts_reported = 8
 script = ExtResource("1_qjssp")
 id = 1
 
